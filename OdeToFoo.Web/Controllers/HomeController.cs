@@ -1,5 +1,7 @@
-﻿using System;
+﻿using OdeToFood.Data.Services;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,11 +10,24 @@ namespace OdeToFoo.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        IRestaurantData db;
+
+        public HomeController(IRestaurantData db)
         {
-            return View();
+            this.db = db;
         }
 
+        public ActionResult Index()
+        {
+            //Pulling the message added un web.config as message
+            //var message = ConfigurationManager.AppSettings.["message"];
+
+
+            var model = db.GetAll();
+            return View(model);
+        }
+
+       
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
