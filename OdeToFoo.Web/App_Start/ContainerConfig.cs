@@ -27,10 +27,14 @@ namespace OdeToFoo.Web
 
             //web API
             builder.RegisterApiControllers(typeof(MvcApplication).Assembly);
-            //When I use IRestaurant Data it will use InmemoryRestaurant Data
-            builder.RegisterType<InMemoryRestaurantData>()
+            //1.0When I use IRestaurant Data it will use InmemoryRestaurant Data, local data in memory
+            //builder.RegisterType<SqlRestaurantData>()
+
+            //2.0 When I use IRestaurant Data it will use my db Data
+            builder.RegisterType<SqlRestaurantData>()
                 .As<IRestaurantData>()
-                .SingleInstance();
+                .InstancePerRequest();//As the name follows we create an instance per request
+            builder.RegisterType<OdeToFoodDbContext>().InstancePerRequest();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

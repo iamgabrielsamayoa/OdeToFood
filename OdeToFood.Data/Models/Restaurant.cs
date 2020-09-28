@@ -11,8 +11,9 @@ namespace OdeToFood.Data.Models
     {
         public int Id { get; set; }
 
-        //To validate this is not null
+        //To validate this is not null, and has varchar 255
         [Required]
+        [MaxLength(255)]
         public string Name { get; set; }
 
         [Display(Name="Type of Food")]
