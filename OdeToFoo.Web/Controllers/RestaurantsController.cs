@@ -80,6 +80,7 @@ namespace OdeToFoo.Web.Controllers
             if(ModelState.IsValid)
             {
                 db.Update(restaurant);
+                TempData["Message"] = "You have updated the restaurant Successfully!";
                 return RedirectToAction("Details", new { id = restaurant.Id });
             }
 
